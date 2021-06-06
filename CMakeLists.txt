@@ -20,6 +20,7 @@ include_directories(Application)
 
 file(GLOB_RECURSE SOURCES
         "LiteOS/*.*"
+        "Config/*.*"
         "Drivers/*.*"
         "Application/*.*"
         "RTE/Device/TM4C1294NCPDT/*.*"

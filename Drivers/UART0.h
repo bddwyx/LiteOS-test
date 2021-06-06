@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include <rtthread.h>
 
 #include "sysctl.h"
 #include "hw_memmap.h"

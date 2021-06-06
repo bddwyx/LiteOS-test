@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <cmsis_armcc.h>
+#include "systick.h"
 
 #define     __IM     volatile const      /*! Defines 'read only' structure member permissions */
 #define     __OM     volatile            /*! Defines 'write only' structure member permissions */
@@ -47,5 +48,7 @@ typedef struct
 
 #define SCB                 ((SCB_Type       *)     SCB_BASE      )   /*!< SCB configuration struct */
 #define SysTick             ((SysTick_Type   *)     SysTick_BASE  )   /*!< SysTick configuration struct */
+
+uint32_t SysTick_Config(uint32_t ticks);
 
 #endif //CMSIS_LOS_H

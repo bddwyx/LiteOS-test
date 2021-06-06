@@ -537,6 +537,26 @@
               <FileType>1</FileType>
               <FilePath>.\Drivers\DigitalTube.c</FilePath>
             </File>
+            <File>
+              <FileName>UART0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\UART0.c</FilePath>
+            </File>
+            <File>
+              <FileName>printf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\printf.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Config</GroupName>
+          <Files>
+            <File>
+              <FileName>CMSIS_LOS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Config\CMSIS_LOS.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
