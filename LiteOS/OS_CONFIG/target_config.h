@@ -40,6 +40,7 @@
 #define _TARGET_CONFIG_H
 
 #include "los_typedef.h"
+#include "CMSIS_LOS.h"
 #include "config.h"
 
 #ifdef __cplusplus
