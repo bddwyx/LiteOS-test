@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>PART_TM4C1294NCPDT  __FPU_PRESENT</Define>
+              <Define>PART_TM4C1294NCPDT  __FPU_PRESENT RTOS_LOS</Define>
               <Undefine></Undefine>
-              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG</IncludePath>
+              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG;.\Drivers</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -526,6 +526,16 @@
               <FileName>los_init.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\LiteOS\kernel\los_init.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>DigitalTube.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\DigitalTube.c</FilePath>
             </File>
           </Files>
         </Group>

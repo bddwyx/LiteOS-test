@@ -3,18 +3,8 @@
 
 #define SYSTEMCLOCK (120000000u)
 
-//#include "hw_types.h"
-//#include "hw_ints.h"
-//#include "core_cm4.h"
-//#include "sysctl.h"
-//#include "interrupt.h"
-
 #include <stdint.h>
-
-//#define __DSB()                           __dsb(0xF)
-//#define __ISB()                           __isb(0xF)
-//#define __WFI                             __wfi
-#include "cmsis_armcc.h"
+#include <cmsis_armcc.h>
 
 #define     __IM     volatile const      /*! Defines 'read only' structure member permissions */
 #define     __OM     volatile            /*! Defines 'write only' structure member permissions */

@@ -3,7 +3,7 @@ project(TEXAS_TM4C_Experiment)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_compile_definitions(RT_VERSION)
+add_compile_definitions(RTOS_LOS)
 
 include_directories(Drivers)
 include_directories(Config)

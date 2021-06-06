@@ -16,6 +16,8 @@
 #include "los_task.ph"
 #include "los_memory.ph"
 
+#include "DigitalTube.h"
+
 /**
   \brief   System Tick Configuration
   \details Initializes the System Timer and its interrupt, and starts the System Tick Timer.
@@ -33,13 +35,6 @@ uint32_t SysTick_Config(uint32_t ticks)
     SysTickEnable();
     SysTickIntEnable();     /* Function successful */
     return 0;
-}
-
-void Delay(uint32_t value)
-{
-	uint32_t ui32Loop;
-	
-	for(ui32Loop = 0; ui32Loop < value; ui32Loop++){};
 }
 
 static void LEDTask(){
@@ -79,6 +74,7 @@ int main(){
 	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0); //Set PF0 as Output pin
 
     LOS_KernelInit();
+	DigitalTubeRTTInit();
     AppTaskCreate();
 	LOS_Start();
 
