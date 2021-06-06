@@ -188,7 +188,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -336,9 +336,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>PART_TM4C1294NCPDT</Define>
+              <Define>PART_TM4C1294NCPDT  __FPU_PRESENT</Define>
               <Undefine></Undefine>
-              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application</IncludePath>
+              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -360,7 +360,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>1</umfTarg>
+            <umfTarg>0</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -369,7 +369,7 @@
             <TextAddressRange>0x00000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile></ScatterFile>
+            <ScatterFile>.\Objects\GPIO.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -391,6 +391,141 @@
               <FileName>driverlib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib\rvmdk\driverlib.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LiteOS/Arch</GroupName>
+          <Files>
+            <File>
+              <FileName>los_hw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\arch\arm\arm-m\src\los_hw.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_hw_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\arch\arm\arm-m\src\los_hw_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_hwi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\arch\arm\arm-m\src\los_hwi.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_dispatch_keil.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\LiteOS\arch\arm\arm-m\cortex-m4\keil\los_dispatch_keil.S</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>LiteOS/Kernel</GroupName>
+          <Files>
+            <File>
+              <FileName>los_priqueue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\core\los_priqueue.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_swtmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\core\los_swtmr.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_sys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\core\los_sys.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\core\los_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_tick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\core\los_tick.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_timeslice.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\core\los_timeslice.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_event.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\ipc\los_event.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_mux.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\ipc\los_mux.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\ipc\los_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_sem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\ipc\los_sem.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_heap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\bestfit_little\los_heap.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_memory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\bestfit_little\los_memory.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_memcheck.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\common\los_memcheck.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_memstat.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\common\los_memstat.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_slab.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\common\los_slab.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_slabmem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\common\los_slabmem.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_membox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\mem\membox\los_membox.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\misc\los_misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_err.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\base\om\los_err.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_tickless.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\extended\tickless\los_tickless.c</FilePath>
+            </File>
+            <File>
+              <FileName>los_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\LiteOS\kernel\los_init.c</FilePath>
             </File>
           </Files>
         </Group>

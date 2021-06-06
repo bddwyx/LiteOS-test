@@ -41,12 +41,21 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Heap_Size       EQU     0x00000000
+LOS_Heap_Min_Size   EQU     0x400
 
-                AREA    HEAP, NOINIT, READWRITE, ALIGN=3
-__heap_base
-Heap_Mem        SPACE   Heap_Size
-__heap_limit
+                AREA    LOS_HEAP, NOINIT, READWRITE, ALIGN=3
+__los_heap_base
+LOS_Heap_Mem    SPACE   LOS_Heap_Min_Size
+__los_heap_limit
+
+                AREA    LOS_HEAP_INFO, DATA, READONLY, ALIGN=2
+                IMPORT  |Image$$ARM_LIB_STACKHEAP$$ZI$$Base|
+                EXPORT  __LOS_HEAP_ADDR_START__
+                EXPORT  __LOS_HEAP_ADDR_END__
+__LOS_HEAP_ADDR_START__
+                DCD     __los_heap_base
+__LOS_HEAP_ADDR_END__
+                DCD     |Image$$ARM_LIB_STACKHEAP$$ZI$$Base| - 1
 
 
                 PRESERVE8
@@ -993,8 +1002,8 @@ GPIOT_Handler\
                 IF      :DEF:__MICROLIB
 
                 EXPORT  __initial_sp
-                EXPORT  __heap_base
-                EXPORT  __heap_limit
+                EXPORT  __los_heap_base
+                EXPORT  __los_heap_limit
 
                 ELSE
 
