@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
-#include <rtthread.h>
 
 #include "UART0.h"
 #include "Clock.h"

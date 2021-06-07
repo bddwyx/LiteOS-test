@@ -49,17 +49,14 @@ void KeyScan(){
     }
 }
 
-#ifdef RT_VERSION
+#ifdef RTOS_LOS
 
-ALIGN(RT_ALIGN_SIZE);
-static rt_uint8_t key_thread_stack[128];
-
-static struct rt_thread key_thread;
+static uint32_t key_thread_handle;
 
 static void key_thread_entry(void* param){
     while(1) {
         KeyScan();
-        rt_thread_delay(10); // Delay
+        LOS_TaskDelay(10); // Delay
     }
 }
 
@@ -67,25 +64,23 @@ static void key_thread_entry(void* param){
  * @brief Start key-scan thread
  * @ret Status of thread init function
  */
-rt_err_t KeyScanRTTInit(){
+uint32_t KeyScanRTTInit(){
 	
     KeyHWInit();
 
-    rt_err_t status =
-            rt_thread_init(&key_thread,
-                "Key Scan",
-                key_thread_entry,
-                RT_NULL,
-                key_thread_stack,
-                sizeof(key_thread_stack),
-                3,
-                1);
+    uint32_t uwRet = LOS_OK;
+    TSK_INIT_PARAM_S task_init_param;
 
-    if(RT_EOK == status){
-        rt_thread_startup(&key_thread);
+    task_init_param.usTaskPrio = 4;
+    task_init_param.pcName = "Key Scan";
+    task_init_param.pfnTaskEntry = (TSK_ENTRY_FUNC)key_thread_entry;
+    task_init_param.uwStackSize = 512;
+    uwRet = LOS_TaskCreate(&key_thread_handle, &task_init_param);
+    if (uwRet != LOS_OK)
+    {
+        return uwRet;
     }
-
-    return status;
+    return LOS_OK;
 }
 
 #endif

@@ -40,19 +40,16 @@ void StepMotorDriver(uint8_t step){
     }
 }
 
-#ifdef RT_VERSION
+#ifdef RTOS_LOS
 
-ALIGN(RT_ALIGN_SIZE);
-static rt_uint8_t stepMotor_thread_stack[128];
-
-static struct rt_thread stepMotor_thread;
+static uint32_t stepMotor_thread_handle;
 
 static void stepMotor_thread_entry(void* param){
     while(1) {
-				static uint8_t step = 0;
-				StepMotorDriver(step++);
-				step %= 4;	
-				rt_thread_delay(3); // Delay
+        static uint8_t step = 0;
+        StepMotorDriver(step++);
+        step %= 4;
+        LOS_TaskDelay(3); // Delay
     }
 }
 
@@ -60,25 +57,23 @@ static void stepMotor_thread_entry(void* param){
  * @brief Start step motor thread
  * @ret Status of thread init function
  */
-rt_err_t StepMotorRTTInit(){
+uint32_t StepMotorRTTInit(){
 
     StepMotorHWInit();
 
-    rt_err_t status =
-            rt_thread_init(&stepMotor_thread,
-                "Step Motor",
-                stepMotor_thread_entry,
-                RT_NULL,
-                stepMotor_thread_stack,
-                sizeof(stepMotor_thread_stack),
-                2,
-                1);
+    uint32_t uwRet = LOS_OK;
+    TSK_INIT_PARAM_S task_init_param;
 
-    if(RT_EOK == status){
-        //rt_thread_startup(&stepMotor_thread);
+    task_init_param.usTaskPrio = 4;
+    task_init_param.pcName = "Step Motor";
+    task_init_param.pfnTaskEntry = (TSK_ENTRY_FUNC)stepMotor_thread_entry;
+    task_init_param.uwStackSize = 512;
+    uwRet = LOS_TaskCreate(&stepMotor_thread_handle, &task_init_param);
+    if (uwRet != LOS_OK)
+    {
+        return uwRet;
     }
-
-    return status;
+    return LOS_OK;
 }
 
 #endif

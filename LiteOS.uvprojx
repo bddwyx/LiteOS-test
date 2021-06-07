@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>PART_TM4C1294NCPDT  __FPU_PRESENT RTOS_LOS</Define>
               <Undefine></Undefine>
-              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG;.\Drivers</IncludePath>
+              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG;.\Drivers;.\Application</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -547,6 +547,16 @@
               <FileType>1</FileType>
               <FilePath>.\Drivers\printf.c</FilePath>
             </File>
+            <File>
+              <FileName>KeyScan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\KeyScan.c</FilePath>
+            </File>
+            <File>
+              <FileName>StepMotor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\StepMotor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -556,6 +566,21 @@
               <FileName>CMSIS_LOS.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Config\CMSIS_LOS.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Application</GroupName>
+          <Files>
+            <File>
+              <FileName>Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\Clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>CMDSystem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\CMDSystem.c</FilePath>
             </File>
           </Files>
         </Group>
