@@ -9,6 +9,7 @@
 #include "los_memory.ph"
 
 #include "hw_memmap.h"
+#include "pin_map.h"
 #include "gpio.h"
 #include "sysctl.h"
 #include "hw_qei.h"

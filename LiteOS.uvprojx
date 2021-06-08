@@ -562,6 +562,11 @@
               <FileType>1</FileType>
               <FilePath>.\Drivers\Beeper.c</FilePath>
             </File>
+            <File>
+              <FileName>BSP_QEI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP_QEI.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

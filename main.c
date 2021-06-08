@@ -18,13 +18,17 @@
 #include "DigitalTube.h"
 #include "UART0.h"
 #include "Lib_songs.h"
+#include "BSP_QEI.h"
+#include "StepMotor.h"
+
+#include "Clock.h"
 
 static void LEDTask(){
     while(1) {
-        GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_PIN_0);            // Turn on the LED.
-        LOS_TaskDelay(500);
-        GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_0, 0x0);                            // Turn off the LED.
-        LOS_TaskDelay(500);
+        StepMotorTick();
+        ClockTick();
+        ClockDisplay(SIXBIT_WITHDASH);
+        LOS_TaskDelay(1000);
     }
 }
 
@@ -57,10 +61,12 @@ int main(){
 
     UART0HWInit();
     LOS_KernelInit();
+    AppTaskCreate();
     DigitalTubeRTTInit();
     MusicPlayRTTInit();
-    AppTaskCreate();
-    MusicStart(&IronTorrent);
+    StepMotorRTTInit();
+    QEIRTTInit();
+    //MusicStart(&Astronomia);
     LOS_Start();
 
 	while(1) {	
