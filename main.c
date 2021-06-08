@@ -17,6 +17,7 @@
 
 #include "DigitalTube.h"
 #include "UART0.h"
+#include "Lib_songs.h"
 
 static void LEDTask(){
     while(1) {
@@ -57,7 +58,9 @@ int main(){
     UART0HWInit();
     LOS_KernelInit();
     DigitalTubeRTTInit();
+    MusicPlayRTTInit();
     AppTaskCreate();
+	MusicStart(&IronTorrent);
     LOS_Start();
 
 	while(1) {	
