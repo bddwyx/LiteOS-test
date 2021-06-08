@@ -60,7 +60,7 @@ int main(){
     DigitalTubeRTTInit();
     MusicPlayRTTInit();
     AppTaskCreate();
-	MusicStart(&IronTorrent);
+    MusicStart(&IronTorrent);
     LOS_Start();
 
 	while(1) {	
