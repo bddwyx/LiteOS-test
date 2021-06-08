@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>PART_TM4C1294NCPDT  __FPU_PRESENT RTOS_LOS</Define>
               <Undefine></Undefine>
-              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG;.\Drivers;.\Application</IncludePath>
+              <IncludePath>C:\ti\TivaWare_C_Series-2.2.0.295\driverlib;C:\ti\TivaWare_C_Series-2.2.0.295\inc;.\Drivers;.\Config;.\Application;.\LiteOS\arch\arm\arm-m\include;.\LiteOS\kernel\include;.\LiteOS\kernel\base\include;.\LiteOS\kernel\extended\include;.\LiteOS\OS_CONFIG;.\Drivers;.\Application;.\Multimedia</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -557,6 +557,11 @@
               <FileType>1</FileType>
               <FilePath>.\Drivers\StepMotor.c</FilePath>
             </File>
+            <File>
+              <FileName>Beeper.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\Beeper.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -581,6 +586,21 @@
               <FileName>CMDSystem.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Application\CMDSystem.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Multimedia</GroupName>
+          <Files>
+            <File>
+              <FileName>MusicAutoPlay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Multimedia\MusicAutoPlay.c</FilePath>
+            </File>
+            <File>
+              <FileName>SoftTimer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Multimedia\SoftTimer.c</FilePath>
             </File>
           </Files>
         </Group>

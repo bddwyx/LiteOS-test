@@ -17,12 +17,14 @@ include_directories(C:/ti/TivaWare_C_Series-2.2.0.295/inc)
 include_directories(Drivers)
 include_directories(Config)
 include_directories(Application)
+include_directories(Multimedia)
 
 file(GLOB_RECURSE SOURCES
         "LiteOS/*.*"
         "Config/*.*"
         "Drivers/*.*"
         "Application/*.*"
+        "Multimedia/*.*"
         "RTE/Device/TM4C1294NCPDT/*.*"
         "RTE/RTOS/*.*")
 
