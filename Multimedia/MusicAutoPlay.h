@@ -81,10 +81,14 @@
     extern soft_timer_s timer_song_1ms;
 
 	/***	APIs	***/
+    #ifdef RTOS_LOS
+    uint32_t MusicPlayRTTInit(void);
+    #else
 	void Music_auto_play(task_s* auto_play_task, void* args);
-	uint8_t Music_init(soft_timer_s* timer_1ms, T_Song* t_song, task_s** task_address);
     void Music_deinit(task_s* auto_play_task, T_Song* t_song);
     void Music_schedule(void);
+    #endif
+    uint8_t MusicStart(T_Song* t_song);
 
 	/***	SPECIFIC INIT CONFIGURATION	***/
 	

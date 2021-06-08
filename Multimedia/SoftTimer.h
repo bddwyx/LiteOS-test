@@ -13,6 +13,7 @@
 #define __MID_SOFTTIMER_H_INCLUDED
 
 #include <stdint.h>
+#include <string.h>
 
 /**
  * @note ʹ�÷���������һ��soft_timer_s��ȫ�ֱ������磺

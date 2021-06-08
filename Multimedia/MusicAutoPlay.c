@@ -18,6 +18,8 @@
 
 soft_timer_s timer_song_1ms;
 
+void Music_auto_play(task_s* auto_play_task, void* args);
+
 /**
  * @brief Initialize a music task and initialize its soft timer.
  * @param timer_1ms The soft timer for music auto-play task, defined in SoftTimer.c.
@@ -67,6 +69,7 @@ void Music_auto_play(task_s* auto_play_task, void* args){
 
         // Control the buzzeer
         if(0 == note){
+            PWMGenPeriodSet(PWM0_BASE, PWM_GEN_3, 0);
             PWMPulseWidthSet(PWM0_BASE, PWM_OUT_7, 0);
         } else {
             PWMGenPeriodSet(PWM0_BASE, PWM_GEN_3, SYSTEMCLOCK / note);
@@ -88,3 +91,50 @@ void Music_auto_play(task_s* auto_play_task, void* args){
 void Music_schedule(){
     soft_timer_schedule(&timer_song_1ms);
 }
+
+#ifdef RTOS_LOS
+
+static uint32_t music_thread_handle;
+
+static void music_thread_entry(void* param){
+    while(1) {
+        Music_schedule();
+        LOS_TaskDelay(1); // Delay
+    }
+}
+
+/**
+ * @brief Start music thread
+ * @ret Status of thread init function
+ */
+uint32_t MusicPlayRTTInit(){
+
+    BeepInit();
+
+    uint32_t uwRet = LOS_OK;
+    TSK_INIT_PARAM_S task_init_param;
+
+    task_init_param.usTaskPrio = 5;
+    task_init_param.pcName = "Music Play";
+    task_init_param.pfnTaskEntry = (TSK_ENTRY_FUNC)music_thread_entry;
+    task_init_param.uwStackSize = 512;
+    uwRet = LOS_TaskCreate(&music_thread_handle, &task_init_param);
+    if (uwRet != LOS_OK)
+    {
+        return uwRet;
+    }
+    return LOS_OK;
+}
+
+/**
+ * @brief Initialize a music task automatically.
+ * @param t_song Script of the song.
+ * @return The state of the initialize procedure.
+ *      @arg 0 Fail
+ *      @arg 1 Succeed
+ */
+uint8_t MusicStart(T_Song* t_song){
+    Music_init(&timer_song_1ms, t_song, (task_s**)0);
+}
+
+#endif
