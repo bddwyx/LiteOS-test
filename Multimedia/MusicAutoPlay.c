@@ -69,11 +69,11 @@ void Music_auto_play(task_s* auto_play_task, void* args){
 
         // Control the buzzeer
         if(0 == note){
-            PWMGenDisable(PWM0_BASE, PWM_GEN_3);
+            PWMOutputState(PWM0_BASE, PWM_OUT_7_BIT, false);
         } else {
             PWMGenPeriodSet(PWM0_BASE, PWM_GEN_3, SYSTEMCLOCK / 8 / note);
-            PWMPulseWidthSet(PWM0_BASE, PWM_OUT_7, SYSTEMCLOCK / 32 / note);
-            PWMGenEnable(PWM0_BASE, PWM_GEN_3);
+            PWMPulseWidthSet(PWM0_BASE, PWM_OUT_7, SYSTEMCLOCK / 16 / note);
+            PWMOutputState(PWM0_BASE, PWM_OUT_7_BIT, true);
         }
 
         // Music final action
