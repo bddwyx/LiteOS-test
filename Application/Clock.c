@@ -78,11 +78,11 @@ void ClockTimeInc(uint8_t _hour, uint8_t _minute, uint8_t _second){
     *hour %= 24;
 }
 
-const uint8_t* ClockDateGet(){
+const uint8_t *const ClockDateGet(){
     return calender;
 }
 
-const uint8_t* ClockTimeGet(){
+const uint8_t *const ClockTimeGet(){
     return time;
 }
 

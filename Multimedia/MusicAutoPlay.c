@@ -126,6 +126,8 @@ uint32_t MusicPlayRTTInit(){
     return LOS_OK;
 }
 
+task_s* musicTask;
+
 /**
  * @brief Initialize a music task automatically.
  * @param t_song Script of the song.
@@ -134,7 +136,15 @@ uint32_t MusicPlayRTTInit(){
  *      @arg 1 Succeed
  */
 uint8_t MusicStart(T_Song* t_song){
-    Music_init(&timer_song_1ms, t_song, (task_s**)0);
+    return Music_init(&timer_song_1ms, t_song, &musicTask);
+}
+
+/**
+ * @brief Delete the music task.
+ * @param t_song Script of the song.
+ */
+void MusicStop(T_Song* t_song){
+    Music_deinit(musicTask, t_song);
 }
 
 #endif

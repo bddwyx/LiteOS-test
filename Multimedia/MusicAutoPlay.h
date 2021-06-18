@@ -89,6 +89,7 @@
     void Music_schedule(void);
     #endif
     uint8_t MusicStart(T_Song* t_song);
+    void MusicStop(T_Song* t_song);
 
 	/***	SPECIFIC INIT CONFIGURATION	***/
 	
