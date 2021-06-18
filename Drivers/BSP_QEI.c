@@ -21,8 +21,11 @@ void QEIHWInit(){
     QEIEnable(QEI0_BASE);
 }
 
-int32_t GetQEIValue(){
-    return qeiValue;
+int32_t GetQEIValueChange(){
+    static int32_t lastValue = 0;
+    int32_t output = qeiValue - lastValue;
+    lastValue = qeiValue;
+    return output;
 }
 
 int32_t GetQEIDir(){

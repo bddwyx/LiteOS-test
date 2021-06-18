@@ -15,7 +15,7 @@
 #include "hw_qei.h"
 #include "qei.h"
 
-int32_t GetQEIValue();
+int32_t GetQEIValueChange();
 int32_t GetQEIDir();
 
 #ifdef RTOS_LOS
