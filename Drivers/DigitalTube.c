@@ -4,58 +4,6 @@ const uint8_t seg7[] = {
         0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07,
         0x7f, 0x6f, 0x77, 0x7c, 0x58, 0x5e, 0x79, 0x71, 0x40};
 
-void Delay(uint32_t value)
-{
-    uint32_t ui32Loop;
-
-    for(ui32Loop = 0; ui32Loop < value; ui32Loop++){};
-}
-
-uint8_t I2C0_WriteByte(uint8_t DevAddr, uint8_t RegAddr, uint8_t WriteData)
-{
-    uint8_t rop;
-
-    while(I2CMasterBusy(I2C0_BASE)){}; //忙等待
-    I2CMasterSlaveAddrSet(I2C0_BASE, DevAddr, false); //设从机地址，写
-    I2CMasterDataPut(I2C0_BASE, RegAddr);	//设数据地址
-    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_SEND_START); //启动总线发送
-    while(I2CMasterBusy(I2C0_BASE)){};
-    rop = (uint8_t)I2CMasterErr(I2C0_BASE);
-
-    I2CMasterDataPut(I2C0_BASE, WriteData); //设数据值
-    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_SEND_FINISH); //启动总线发送，发送后停止
-    while(I2CMasterBusy(I2C0_BASE)){};
-    rop = (uint8_t)I2CMasterErr(I2C0_BASE);
-
-    return rop;
-}
-
-uint8_t I2C0_ReadByte(uint8_t DevAddr, uint8_t RegAddr)
-{
-    uint8_t value;
-
-    while(I2CMasterBusy(I2C0_BASE)){};	//忙等待
-    I2CMasterSlaveAddrSet(I2C0_BASE, DevAddr, false); //设从机地址，写
-    I2CMasterDataPut(I2C0_BASE, RegAddr); //设数据地址
-    I2CMasterControl(I2C0_BASE,I2C_MASTER_CMD_SINGLE_SEND); //启动总线发送
-    while(I2CMasterBusBusy(I2C0_BASE));
-    if (I2CMasterErr(I2C0_BASE) != I2C_MASTER_ERR_NONE)
-        return 0; //错误
-    Delay(100);
-
-    //receive data
-    I2CMasterSlaveAddrSet(I2C0_BASE, DevAddr, true); //设从机地址，读
-    I2CMasterControl(I2C0_BASE,I2C_MASTER_CMD_SINGLE_RECEIVE); //启动总线接收
-    while(I2CMasterBusBusy(I2C0_BASE));
-    if (I2CMasterErr(I2C0_BASE) != I2C_MASTER_ERR_NONE)
-        return 0; //错误
-    Delay(100);
-
-    value=I2CMasterDataGet(I2C0_BASE);
-
-    return value;
-}
-
 void DigitalTubeHWInit(){
     SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C0);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
@@ -64,7 +12,7 @@ void DigitalTubeHWInit(){
     GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
     GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
 
-    I2CMasterInitExpClk(I2C0_BASE, 20000000/*SysCtlClockGet()*/, true);										//config I2C0 400k
+    I2CMasterInitExpClk(I2C0_BASE, 120000000/*SysCtlClockGet()*/, true);										//config I2C0 400k
     I2CMasterEnable(I2C0_BASE);
 
     I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_CONFIG_PORT0,0xff);		//config port 0 as input

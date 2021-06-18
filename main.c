@@ -16,6 +16,7 @@
 #include "los_memory.ph"
 
 #include "DigitalTube.h"
+#include "KeyScan.h"
 #include "UART0.h"
 #include "Lib_songs.h"
 #include "BSP_QEI.h"
@@ -73,6 +74,7 @@ int main(){
     LOS_KernelInit();
     AppTaskCreate();
     DigitalTubeRTTInit();
+    KeyScanRTTInit();
     MusicPlayRTTInit();
     StepMotorRTTInit();
     QEIRTTInit();
