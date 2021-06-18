@@ -15,11 +15,11 @@
 #include "hw_qei.h"
 #include "qei.h"
 
-int32_t GetQEIValueChange();
-int32_t GetQEIDir();
+int32_t GetQEIValueChange(void);
+int32_t GetQEIDir(void);
 
 #ifdef RTOS_LOS
-uint32_t QEIRTTInit();
+uint32_t QEIRTTInit(void);
 #endif
 
 #endif //BSP_QEI_H

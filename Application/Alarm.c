@@ -1,7 +1,7 @@
 #include "Alarm.h"
 
 alarm_inform_t alarm[] = {
-        {12, 0, &Astronomia},
+        {12, 1, &Astronomia},
         {24, 0, &Windmill},
 };
 
@@ -21,8 +21,10 @@ void AlarmStart(uint8_t alarmIndex){
 }
 
 void AlarmStop(){
-    MusicStop(currentAlarm);
-    currentAlarm = NULL;
+    if(currentAlarm != NULL){
+        MusicStop(currentAlarm);
+        currentAlarm = NULL;
+    }
 }
 
 void AlarmCheck(const uint8_t* const time){

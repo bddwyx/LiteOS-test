@@ -78,11 +78,11 @@ void ClockTimeInc(uint8_t _hour, uint8_t _minute, uint8_t _second){
     *hour %= 24;
 }
 
-const uint8_t *const ClockDateGet(){
+const uint8_t * ClockDateGet(){
     return calender;
 }
 
-const uint8_t *const ClockTimeGet(){
+const uint8_t * ClockTimeGet(){
     return time;
 }
 
@@ -95,6 +95,8 @@ void ClockTick(){
                 *hour = 0;
             }
         }
+
+        AlarmCheck(time);
     }
 }
 
@@ -133,4 +135,15 @@ void ClockDisplay(enum display_mode_e mode) {
             break;
         default:;
     }
+}
+
+void ClockDateDisplay(){
+    tubeShowBuffer[0] = 2;
+    tubeShowBuffer[1] = 0;
+    tubeShowBuffer[2] = (*year) / 10;
+    tubeShowBuffer[3] = (*year) % 10;
+    tubeShowBuffer[4] = (*month) / 10;
+    tubeShowBuffer[5] = (*month) % 10;
+    tubeShowBuffer[6] = (*date) / 10;
+    tubeShowBuffer[7] = (*date) % 10;
 }

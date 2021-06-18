@@ -22,13 +22,23 @@
 #include "StepMotor.h"
 
 #include "Clock.h"
+#include "CMDSystem.h"
 
 static void LEDTask(){
     while(1) {
         StepMotorTick();
         ClockTick();
         ClockDisplay(SIXBIT_WITHDASH);
-        LOS_TaskDelay(1000);
+        CMDDetect();
+        LOS_TaskDelay(200);
+        CMDDetect();
+        LOS_TaskDelay(200);
+        CMDDetect();
+        LOS_TaskDelay(200);
+        CMDDetect();
+        LOS_TaskDelay(200);
+        CMDDetect();
+        LOS_TaskDelay(200);
     }
 }
 

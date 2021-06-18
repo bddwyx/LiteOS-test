@@ -44,6 +44,7 @@ void KeyScan(){
         if((keyList[i].scanBuf & DETECTMASK) == DETECTMASK) keyList[i].status = HIGH;
         if((keyList[i].scanBuf & DETECTMASK) == 0x00) {
             keyList[i].status = LOW;
+            keyList[i].scanBuf = 0xff;
             keyList[i].tirgNum++;
         }
     }
