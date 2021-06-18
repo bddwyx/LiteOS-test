@@ -8,9 +8,12 @@ enum display_mode_e {
     SIXBIT_WITHDASH,
 };
 
+void ClockDateSet(uint8_t _year, uint8_t _month, uint8_t _date);
+void ClockDateInc(void);
 void ClockTimeSet(uint8_t _hour, uint8_t _minute, uint8_t _second);
 void ClockTimeInc(uint8_t _hour, uint8_t _minute, uint8_t _second);
 const uint8_t* ClockTimeGet(void);
+const uint8_t* ClockDateGet(void);
 
 void ClockTick(void);
 void ClockDisplay(enum display_mode_e mode);
