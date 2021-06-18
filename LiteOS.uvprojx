@@ -592,6 +592,11 @@
               <FileType>1</FileType>
               <FilePath>.\Application\CMDSystem.c</FilePath>
             </File>
+            <File>
+              <FileName>Alarm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\Alarm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
