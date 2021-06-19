@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "DigitalTube.h"
+#include "BSP_QEI.h"
 
 #include "Clock.h"
 #include "Callback.h"
@@ -15,5 +16,7 @@ typedef struct{
     output_logic_t outputLogic;
     state_trans_t stateTrans;
 } FSM_t;
+
+void FSMSwitch(key_trig_type_e input);
 
 #endif //WORKSTATEFSM_H

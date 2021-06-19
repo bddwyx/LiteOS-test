@@ -102,6 +102,7 @@ void ClockTick(){
             *minute = 0;
             if(++*hour > 23){
                 *hour = 0;
+                ClockDateInc();
             }
         }
 

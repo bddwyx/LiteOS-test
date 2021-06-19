@@ -19,8 +19,10 @@ typedef enum{
 FSM_e currentState = DISPLAY;
 
 FSM_t FSMLogic[] = {
-        {DisplayOutputLogic, DisplayTransFunc}
-
+        {DisplayOutputLogic, DisplayTransFunc},
+        {SettingOutputLogic, SettingTransFunc},
+        {StopWatchOutputLogic, StopWatchTransFunc},
+        {AlarmOutputLogic, AlarmTransFunc},
 };
 
 void DisplayOutputLogic(key_trig_type_e input){
@@ -30,6 +32,11 @@ void DisplayOutputLogic(key_trig_type_e input){
     if(input == KEYE5) {  //显示切换
         state++;
         state %= 3;
+    }
+
+    if(input == QEI){   //亮度切换
+        if(GetQEIValueChange() > 0) DigitalTubeChangeBrightness(-1);
+        else DigitalTubeChangeBrightness(1);
     }
 
     switch(state){
@@ -62,9 +69,6 @@ void DisplayTransFunc(key_trig_type_e input){
             break;
 
         case KEYE8:
-            break;
-
-        case QEI:
             break;
     }
 }
@@ -123,4 +127,8 @@ void AlarmOutputLogic(key_trig_type_e input) {
 
 void AlarmTransFunc(key_trig_type_e input) {
 
+}
+
+void FSMSwitch(key_trig_type_e input){
+    FSMLogic[currentState].outputLogic(input);
 }

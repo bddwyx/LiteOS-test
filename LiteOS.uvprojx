@@ -612,6 +612,11 @@
               <FileType>1</FileType>
               <FilePath>.\Application\Callback.c</FilePath>
             </File>
+            <File>
+              <FileName>WorkStateFSM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\WorkStateFSM.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

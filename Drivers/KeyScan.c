@@ -108,6 +108,7 @@ void KeyScan(){
             keyList[i].status = KEY_TRIGGED;
             keyList[i].tirgNum++;
             keyList[i].scanBuf = DETECTMASK + 1;
+            KeyTrigCallback((key_trig_type_e)i);
         }
         else if((keyList[i].scanBuf & DETECTMASK) == 0x00) {
             keyList[i].status = KEY_NORM;

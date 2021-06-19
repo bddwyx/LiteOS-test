@@ -27,8 +27,6 @@
 
 static void LEDTask(){
     while(1) {
-        StepMotorTick();
-        ClockTick();
         ClockDisplay(SIXBIT_WITHDASH);
         CMDDetect();
         LOS_TaskDelay(200);
@@ -40,6 +38,9 @@ static void LEDTask(){
         LOS_TaskDelay(200);
         CMDDetect();
         LOS_TaskDelay(200);
+
+        StepMotorTick();
+        ClockTick();
     }
 }
 

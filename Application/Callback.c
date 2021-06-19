@@ -1,20 +1,26 @@
 #include "Callback.h"
 
 #include "KeyScan.h"
+#include "DigitalTube.h"
 
 #include "Alarm.h"
+#include "WorkStateFSM.h"
 
-void KeyTrigCallback(key_trig_type_e tirgger){
+void KeyTrigCallback(key_trig_type_e trigger){
     AlarmStop();
+    FSMSwitch(trigger);
 
-    switch (tirgger) {
+    switch (trigger) {
         case KEY1:
+            SysCtlReset();
             break;
         case KEY2:
             break;
         case KEYE1:
+            DigitalTubeChangeBrightness(1);
             break;
         case KEYE2:
+            DigitalTubeChangeBrightness(-1);
             break;
         case KEYE3:
             break;

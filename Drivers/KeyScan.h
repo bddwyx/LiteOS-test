@@ -14,6 +14,8 @@
 
 #include "BSP_I2C.h"
 
+#include "Callback.h"
+
 typedef enum{
     KEY_NORM = 0,
     KEY_TRIGGED,

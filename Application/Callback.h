@@ -18,4 +18,6 @@ typedef enum{
     KEY_TRIG_NUM,
 }key_trig_type_e;
 
+void KeyTrigCallback(key_trig_type_e trigger);
+
 #endif //CALLBACK_H
