@@ -7,6 +7,7 @@ bool stopWatchDisplayOn = false;
 
 void StopWatchOn(){
     stopWatchOn = true;
+    DigitalChangeLEDBuffer(0x20);
 }
 
 void StopWatchModeSwitch(bool state) {
@@ -29,6 +30,7 @@ void StopWatchTick(){
         }
         else{
             stopWatchOn = false;
+            DigitalChangeLEDBuffer(0x10);
             MusicStart(&SuperMario);
         }
     }

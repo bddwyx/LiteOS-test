@@ -45,6 +45,7 @@ static void init_thread_entry(){
     LOS_TaskDelay(200);
     DigitalChangeLEDBuffer(0x00);
     LOS_TaskDelay(200);
+    DigitalChangeLEDBuffer(0x01);
 
     LOS_TaskLock();
 

@@ -46,15 +46,18 @@ void DisplayOutputLogic(key_trig_type_e input){
         case 0:
             OperationChangeAvailability(true, true);
             ClockDisplay(SIXBIT_WITHDASH);
+            DigitalChangeLEDBuffer(0x01);
             break;
 
         case 1:
             OperationChangeAvailability(true, false);
             ClockDateDisplay();
+            DigitalChangeLEDBuffer(0x02);
             break;
 
         case 2:
             ClockSolarDisplay();
+            DigitalChangeLEDBuffer(0x03);
             break;
 
         default:;
@@ -69,18 +72,21 @@ void DisplayTransFunc(key_trig_type_e input){
             currentState = SETTING;
             OperationChangeAvailability(false, false);
             ClockTimeSetShow(0);
+            DigitalChangeLEDBuffer(0x04);
             break;
 
         case KEYE6:
             currentState = STOPWATCH;
             StopWatchModeSwitch(true);
             OperationChangeAvailability(false, false);
+            DigitalChangeLEDBuffer(0x10);
             break;
 
         case KEYE7:
             OperationChangeAvailability(false, false);
             currentState = ALARM;
             AlarmOutputLogic(KEY1); //刷新显示，KEY1无意义
+            DigitalChangeLEDBuffer(0x40);
             break;
 
         case KEYE8:
@@ -155,6 +161,7 @@ void SettingOutputLogic(key_trig_type_e input) {
                 case KEYE4:
                     state = 3;
                     ClockTimeSetShow(3);
+                    DigitalChangeLEDBuffer(0x08);
                     break;
             }
             break;
@@ -221,6 +228,7 @@ void SettingOutputLogic(key_trig_type_e input) {
                 case KEYE4:
                     state = 6;
                     ClockTimeSetShow(6);
+                    DigitalChangeLEDBuffer(0x0c);
                     break;
             }
             break;
@@ -256,6 +264,7 @@ void SettingTransFunc(key_trig_type_e input) {
         case KEYE8:
             currentState = DISPLAY;
             OperationChangeAvailability(true, true);
+            DigitalChangeLEDBuffer(0x01);
             break;
     }
 }
@@ -285,6 +294,7 @@ void StopWatchTransFunc(key_trig_type_e input) {
             currentState = DISPLAY;
             StopWatchModeSwitch(false);
             OperationChangeAvailability(true, true);
+            DigitalChangeLEDBuffer(0x01);
             break;
     }
 }
@@ -315,6 +325,7 @@ void AlarmOutputLogic(key_trig_type_e input) {
                     state = 1;
                     AlarmGet(alarmIndex, alarmSettingBuffer);
                     AlarmShow(alarmIndex, true);
+                    DigitalChangeLEDBuffer(0x80);
                     return;
                     break;
             }
@@ -363,6 +374,7 @@ void AlarmOutputLogic(key_trig_type_e input) {
                 case KEYE4:
                     state = 3;
                     AlarmShowAvailablity(alarmIndex);
+                    DigitalChangeLEDBuffer(0xc0);
                     break;
             }
             break;
@@ -400,6 +412,7 @@ void AlarmTransFunc(key_trig_type_e input) {
         case KEYE8:
             currentState = DISPLAY;
             OperationChangeAvailability(true, true);
+            DigitalChangeLEDBuffer(0x01);
             break;
     }
 }
