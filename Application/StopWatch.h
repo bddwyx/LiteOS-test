@@ -6,7 +6,8 @@
 #include "Lib_songs.h"
 
 void StopWatchOn(void);
-void StopWatchModeSwitch(void);
+void StopWatchModeSwitch(bool state);
+void StopWatchInc(int8_t seconds);
 
 #ifdef RTOS_LOS
 uint32_t StopWatchRTTInit(void);

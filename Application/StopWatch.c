@@ -9,13 +9,14 @@ void StopWatchOn(){
     stopWatchOn = true;
 }
 
-void StopWatchModeSwitch(){
-    stopWatchDisplayOn = ~stopWatchDisplayOn;
+void StopWatchModeSwitch(bool state) {
+    stopWatchDisplayOn = state;
 }
 
-void StopWatchSet(uint8_t seconds){
+void StopWatchInc(int8_t seconds){
     stopWatchOn = false;
-    stopWatchTime = seconds;
+    if((seconds > 0) && (stopWatchTime < 255)) stopWatchTime++;
+    if((seconds < 0) && (stopWatchTime > 0)) stopWatchTime--;
     stopWatch10ms = 0;
 }
 
