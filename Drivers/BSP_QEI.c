@@ -40,6 +40,12 @@ static void QEI_thread_entry(void* param){
     while(1) {
         qeiValue = QEIPositionGet(QEI0_BASE);
         qeiDir = QEIDirectionGet(QEI0_BASE);
+
+        static int32_t lastValue = 0;
+        if(qeiValue != lastValue){
+            lastValue = qeiValue;
+            KeyTrigCallback(QEI);
+        }
         LOS_TaskDelay(10); // Delay
     }
 }

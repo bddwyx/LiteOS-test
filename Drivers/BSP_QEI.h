@@ -15,6 +15,8 @@
 #include "hw_qei.h"
 #include "qei.h"
 
+#include "Callback.h"
+
 int32_t GetQEIValueChange(void);
 int32_t GetQEIDir(void);
 
