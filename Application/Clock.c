@@ -14,6 +14,15 @@ uint8_t* const minute = time + 1;
 uint8_t* const second = time + 2;
 uint8_t showBuffer[6] = {0};
 
+void ClockModuleInit(){
+    EEPROMHWInit();
+    EEPROMReadToRAM(0, time, 4);
+}
+
+void ClockDataStore(){
+    EEPROMWriteToDst(0, time, 4);
+}
+
 void ClockDateSet(uint8_t _year, uint8_t _month, uint8_t _date){
     *year = _year;
     *month = _month;
@@ -98,6 +107,8 @@ void ClockTick(){
 
         AlarmCheck(time);
     }
+
+    ClockDataStore();
 }
 
 void ClockBufferGenerate(){

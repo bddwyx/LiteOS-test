@@ -12,7 +12,7 @@ void DigitalTubeHWInit(){
     GPIOPinTypeI2CSCL(GPIO_PORTB_BASE, GPIO_PIN_2);
     GPIOPinTypeI2C(GPIO_PORTB_BASE, GPIO_PIN_3);
 
-    I2CMasterInitExpClk(I2C0_BASE, 120000000/*SysCtlClockGet()*/, true);										//config I2C0 400k
+    I2CMasterInitExpClk(I2C0_BASE, 60000000/*SysCtlClockGet()*/, true);										//config I2C0 400k
     I2CMasterEnable(I2C0_BASE);
 
     I2C0_WriteByte(TCA6424_I2CADDR,TCA6424_CONFIG_PORT0,0xff);		//config port 0 as input

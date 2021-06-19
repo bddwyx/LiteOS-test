@@ -572,6 +572,11 @@
               <FileType>1</FileType>
               <FilePath>.\Drivers\BSP_I2C.c</FilePath>
             </File>
+            <File>
+              <FileName>BSP_EEPROM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP_EEPROM.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -601,6 +606,11 @@
               <FileName>Alarm.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Application\Alarm.c</FilePath>
+            </File>
+            <File>
+              <FileName>Callback.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\Callback.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -2,6 +2,7 @@
 #define CLOCK_H
 
 #include "DigitalTube.h"
+#include "BSP_EEPROM.h"
 
 #include "Alarm.h"
 
@@ -17,6 +18,7 @@ void ClockTimeInc(uint8_t _hour, uint8_t _minute, uint8_t _second);
 const uint8_t * ClockTimeGet(void);
 const uint8_t * ClockDateGet(void);
 
+void ClockModuleInit(void);
 void ClockTick(void);
 void ClockDisplay(enum display_mode_e mode);
 void ClockDateDisplay(void);

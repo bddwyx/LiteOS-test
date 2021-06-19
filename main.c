@@ -73,6 +73,7 @@ int main(){
     UART0HWInit();
     LOS_KernelInit();
     AppTaskCreate();
+    ClockModuleInit();
     DigitalTubeRTTInit();
     KeyScanRTTInit();
     MusicPlayRTTInit();
