@@ -617,6 +617,11 @@
               <FileType>1</FileType>
               <FilePath>.\Application\WorkStateFSM.c</FilePath>
             </File>
+            <File>
+              <FileName>Operation.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Application\Operation.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

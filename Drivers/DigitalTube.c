@@ -23,9 +23,25 @@ void DigitalTubeHWInit(){
     I2C0_WriteByte(PCA9557_I2CADDR,PCA9557_OUTPUT,0xff);				//turn off the LED1-8
 }
 
+uint8_t brightness = 0;
+const uint8_t MAXBRIGHT = 15;
+
+void DigitalTubeChangeBrightness(int8_t input){
+    if(input < 0){
+        if(brightness < MAXBRIGHT) brightness ++;
+    }
+    if(input > 0){
+        if(brightness > 0) brightness --;
+    }
+}
+
+void DigitalTubeBrightnessMax(){
+    brightness = 0;
+}
+
 void DigitalShowNum(uint8_t bit, uint8_t num) {
     I2C0_WriteByte(TCA6424_I2CADDR, TCA6424_OUTPUT_PORT2, 0);        //消隐
-    if (bit < 8) {
+    if ((bit < 8) && (brightness != MAXBRIGHT)) {
         I2C0_WriteByte(TCA6424_I2CADDR, TCA6424_OUTPUT_PORT1, seg7[num]);                //write port 1（‘0’的码段值）
         I2C0_WriteByte(TCA6424_I2CADDR, TCA6424_OUTPUT_PORT2, 1 << bit);        //write port 2（点亮第1个数码管，高点亮）
     }
@@ -46,17 +62,6 @@ void DigitalChangeLEDBuffer(uint8_t mask){
 }
 
 #ifdef RTOS_LOS
-
-uint8_t brightness = 0;
-
-void DigitalTubeChangeBrightness(int8_t input){
-    if(input < 0){
-        if(brightness < 15) brightness ++;
-    }
-    if(input > 0){
-        if(brightness > 0) brightness --;
-    }
-}
 
 static uint32_t tube_thread_handle;
 

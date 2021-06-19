@@ -24,44 +24,7 @@
 
 #include "Clock.h"
 #include "CMDSystem.h"
-
-static void LEDTask(){
-    while(1) {
-        ClockDisplay(SIXBIT_WITHDASH);
-        CMDDetect();
-        LOS_TaskDelay(200);
-        CMDDetect();
-        LOS_TaskDelay(200);
-        CMDDetect();
-        LOS_TaskDelay(200);
-        CMDDetect();
-        LOS_TaskDelay(200);
-        CMDDetect();
-        LOS_TaskDelay(200);
-
-        StepMotorTick();
-        ClockTick();
-    }
-}
-
-uint32_t RX_Task_Handle;
-
-static uint32_t AppTaskCreate(void)
-{
-    uint32_t uwRet = LOS_OK;
-    TSK_INIT_PARAM_S task_init_param;
-
-    task_init_param.usTaskPrio = 4;
-    task_init_param.pcName = "LEDTask";
-    task_init_param.pfnTaskEntry = (TSK_ENTRY_FUNC)LEDTask;
-    task_init_param.uwStackSize = 512;
-    uwRet = LOS_TaskCreate(&RX_Task_Handle, &task_init_param);
-    if (uwRet != LOS_OK)
-    {
-        return uwRet;
-    }
-    return LOS_OK;
-}
+#include "Operation.h"
 
 int main(){
 	//SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000ul);
@@ -73,7 +36,7 @@ int main(){
 
     UART0HWInit();
     LOS_KernelInit();
-    AppTaskCreate();
+    OperationRRTInit();
     ClockModuleInit();
     DigitalTubeRTTInit();
     KeyScanRTTInit();

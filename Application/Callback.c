@@ -17,22 +17,28 @@ void KeyTrigCallback(key_trig_type_e trigger){
         case KEY2:
             break;
         case KEYE1:
-            DigitalTubeChangeBrightness(1);
+            DigitalTubeBrightnessMax();
             break;
         case KEYE2:
-            DigitalTubeChangeBrightness(-1);
+            DigitalTubeBrightnessMax();
             break;
         case KEYE3:
+            DigitalTubeBrightnessMax();
             break;
         case KEYE4:
+            DigitalTubeBrightnessMax();
             break;
         case KEYE5:
+            DigitalTubeBrightnessMax();
             break;
         case KEYE6:
+            DigitalTubeBrightnessMax();
             break;
         case KEYE7:
+            DigitalTubeBrightnessMax();
             break;
         case KEYE8:
+            DigitalTubeBrightnessMax();
             break;
         case QEI:
             break;

@@ -20,6 +20,7 @@ extern uint8_t tubeShowBuffer[];
 uint32_t DigitalTubeRTTInit(void);
 void DigitalChangeLEDBuffer(uint8_t mask);
 void DigitalTubeChangeBrightness(int8_t input);
+void DigitalTubeBrightnessMax(void);
 #else
 void DigitalTubeHWInit(void);
 void DigitalShowNum(uint8_t bit, uint8_t num);
