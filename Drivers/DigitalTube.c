@@ -52,7 +52,7 @@ void DigitalDisplay(uint8_t mask){
 }
 
 uint8_t tubeShowBuffer[8] = {
-        2, 0, 2, 1, 0, 6, 0, 2,
+        2, 1, 9, 1, 0, 6, 0, 9,
 };
 
 static uint8_t ledShowBuffer[2] = {0};

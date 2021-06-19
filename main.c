@@ -26,6 +26,57 @@
 #include "CMDSystem.h"
 #include "Operation.h"
 
+
+static void init_thread_entry(){
+    LOS_TaskLock();
+
+    DigitalTubeRTTInit();
+    MusicPlayRTTInit();
+    //MusicStart(&Astronomia);
+
+    LOS_TaskUnlock();
+
+    DigitalChangeLEDBuffer(0xff);
+    LOS_TaskDelay(200);
+    DigitalChangeLEDBuffer(0x00);
+    LOS_TaskDelay(200);
+    DigitalChangeLEDBuffer(0xff);
+    LOS_TaskDelay(200);
+    DigitalChangeLEDBuffer(0x00);
+    LOS_TaskDelay(200);
+
+    //fortubeShowBuffer[i] = 0
+
+    LOS_TaskLock();
+
+    KeyScanRTTInit();
+    StepMotorRTTInit();
+    QEIRTTInit();
+    ClockModuleInit();
+    OperationRRTInit();
+
+    LOS_TaskUnlock();
+}
+
+uint32_t init_thread_handle;
+
+uint32_t InitRRTInit(void)
+{
+    uint32_t uwRet = LOS_OK;
+    TSK_INIT_PARAM_S task_init_param;
+
+    task_init_param.usTaskPrio = 4;
+    task_init_param.pcName = "Initialization";
+    task_init_param.pfnTaskEntry = (TSK_ENTRY_FUNC)init_thread_entry;
+    task_init_param.uwStackSize = 512;
+    uwRet = LOS_TaskCreate(&init_thread_handle, &task_init_param);
+    if (uwRet != LOS_OK)
+    {
+        return uwRet;
+    }
+    return LOS_OK;
+}
+
 int main(){
 	//SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_OSC), 25000000ul);
 	SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |SYSCTL_OSC_MAIN |SYSCTL_USE_PLL |SYSCTL_CFG_VCO_480), SYSTEMCLOCK);
@@ -36,14 +87,7 @@ int main(){
 
     UART0HWInit();
     LOS_KernelInit();
-    OperationRRTInit();
-    ClockModuleInit();
-    DigitalTubeRTTInit();
-    KeyScanRTTInit();
-    MusicPlayRTTInit();
-    StepMotorRTTInit();
-    QEIRTTInit();
-    //MusicStart(&Astronomia);
+    InitRRTInit();
     LOS_Start();
 
 	while(1) {	
