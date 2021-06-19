@@ -25,6 +25,9 @@ FSM_t FSMLogic[] = {
         {AlarmOutputLogic, AlarmTransFunc},
 };
 
+static uint8_t timeSettingBuffer[3];
+static uint8_t alarmSettingBuffer[3];
+
 void DisplayOutputLogic(key_trig_type_e input){
     /** 0-时间，1-日期，2-节气 **/
     static uint8_t state = 0;
@@ -64,20 +67,20 @@ void DisplayTransFunc(key_trig_type_e input){
     switch (input) {
         case KEYE6:
             currentState = STOPWATCH;
-            StopWatchModeSwitch();
+            StopWatchModeSwitch(true);
             OperationChangeAvailability(false, false);
             break;
 
         case KEYE7:
+            OperationChangeAvailability(false, false);
             currentState = ALARM;
+            AlarmOutputLogic(KEY1); //刷新显示，KEY1无意义
             break;
 
         case KEYE8:
             break;
     }
 }
-
-static uint8_t timeSettingBuffer[3];
 
 void SettingOutputLogic(key_trig_type_e input) {
     /** 0：小时，1：分钟，2：秒 **/
@@ -118,23 +121,113 @@ void SettingTransFunc(key_trig_type_e input) {
 }
 
 void StopWatchOutputLogic(key_trig_type_e input) {
-    if(input == KEYE4){
-        StopWatchOn();
+    switch (input) {
+        case KEYE2:
+            StopWatchInc(1);
+            break;
+        case KEYE3:
+            StopWatchInc(-1);
+            break;
+        case KEYE4:
+            StopWatchOn();
+            break;
+        case QEI:
+            StopWatchInc(GetQEIValueChange());
+            break;
     }
 
     StopWatchTransFunc(input);
 }
 
 void StopWatchTransFunc(key_trig_type_e input) {
-
+    switch (input) {
+        case KEYE8:
+            currentState = DISPLAY;
+            StopWatchModeSwitch(false);
+            OperationChangeAvailability(true, true);
+            break;
+    }
 }
 
 void AlarmOutputLogic(key_trig_type_e input) {
+    /** 0:：闹钟选择，1：小时设定，2：分钟设定 **/
+    static uint8_t state = 0;
+    static uint8_t alarmIndex = 0;
 
+    switch (state) {
+        case 0:
+            switch(input){
+                case KEYE2:
+                    if(alarmIndex < ALARM_NUM - 1) alarmIndex++;
+                    break;
+                case KEYE3:
+                    if(alarmIndex > 0) alarmIndex--;
+                    break;
+                case KEYE4:
+                    state = 1;
+                    AlarmGet(alarmIndex, alarmSettingBuffer);
+                    break;
+            }
+            for(uint8_t i = 0; i < 6; i++) tubeShowBuffer[i] = 20;
+            tubeShowBuffer[6] = alarmIndex / 10;
+            tubeShowBuffer[7] = alarmIndex % 10;
+            break;
+
+        case 1:
+            switch (input) {
+                case KEYE2:
+                    AlarmInc(alarmIndex, 1, 0);
+                    AlarmShow(alarmIndex, true);
+                    break;
+                case KEYE3:
+                    AlarmInc(alarmIndex, 23, 0);
+                    AlarmShow(alarmIndex, true);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) AlarmInc(alarmIndex, 1, 0);
+                    else AlarmInc(alarmIndex, 23, 0);
+                    AlarmShow(alarmIndex, true);
+                    break;
+                case KEYE4:
+                    state = 2;
+                    AlarmShow(alarmIndex, false);
+                    break;
+            }
+            break;
+
+        case 2:
+            switch (input) {
+                case KEYE2:
+                    AlarmInc(alarmIndex, 0, 1);
+                    AlarmShow(alarmIndex, false);
+                    break;
+                case KEYE3:
+                    AlarmInc(alarmIndex, 23, 59);
+                    AlarmShow(alarmIndex, false);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) AlarmInc(alarmIndex, 0, 1);
+                    else AlarmInc(alarmIndex, 23, 59);
+                    AlarmShow(alarmIndex, false);
+                    break;
+                case KEYE4:
+                    state = 0;
+                    AlarmTransFunc(KEYE8);  //切换回正常状态
+                    return;
+                    break;
+            }
+    }
+
+    AlarmTransFunc(input);
 }
 
 void AlarmTransFunc(key_trig_type_e input) {
-
+    switch (input) {
+        case KEYE8:
+            currentState = DISPLAY;
+            OperationChangeAvailability(true, true);
+            break;
+    }
 }
 
 void FSMSwitch(key_trig_type_e input){
