@@ -9,6 +9,7 @@
 #include "Clock.h"
 #include "Callback.h"
 #include "Operation.h"
+#include "StopWatch.h"
 
 typedef void (*output_logic_t)(key_trig_type_e input);
 typedef void (*state_trans_t)(key_trig_type_e input);

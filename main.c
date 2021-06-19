@@ -25,6 +25,7 @@
 #include "Clock.h"
 #include "CMDSystem.h"
 #include "Operation.h"
+#include "StopWatch.h"
 
 
 static void init_thread_entry(){
@@ -52,6 +53,7 @@ static void init_thread_entry(){
     QEIRTTInit();
     ClockModuleInit();
     OperationRRTInit();
+    StopWatchRTTInit();
 
     LOS_TaskUnlock();
 }

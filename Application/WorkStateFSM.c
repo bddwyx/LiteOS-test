@@ -64,6 +64,8 @@ void DisplayTransFunc(key_trig_type_e input){
     switch (input) {
         case KEYE6:
             currentState = STOPWATCH;
+            StopWatchModeSwitch();
+            OperationChangeAvailability(false, false);
             break;
 
         case KEYE7:
@@ -116,7 +118,11 @@ void SettingTransFunc(key_trig_type_e input) {
 }
 
 void StopWatchOutputLogic(key_trig_type_e input) {
+    if(input == KEYE4){
+        StopWatchOn();
+    }
 
+    StopWatchTransFunc(input);
 }
 
 void StopWatchTransFunc(key_trig_type_e input) {
