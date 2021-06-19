@@ -65,6 +65,12 @@ void DisplayOutputLogic(key_trig_type_e input){
 
 void DisplayTransFunc(key_trig_type_e input){
     switch (input) {
+        case KEYE1:
+            currentState = SETTING;
+            OperationChangeAvailability(false, false);
+            ClockTimeSetShow(0);
+            break;
+
         case KEYE6:
             currentState = STOPWATCH;
             StopWatchModeSwitch(true);
@@ -86,38 +92,172 @@ void SettingOutputLogic(key_trig_type_e input) {
     /** 0：小时，1：分钟，2：秒 **/
     static uint8_t state = 0;
 
-    if(input == KEYE8){
-        state++;
-        if(state == 4){
-            ClockTimeSet(timeSettingBuffer[0], timeSettingBuffer[1], timeSettingBuffer[2]);
-            state = 0;
-        }
-    }
-
     switch (state) {
         case 0:
-            memcpy(timeSettingBuffer, ClockTimeGet(), 3);
-            state++;
+            switch (input) {
+                case KEYE2:
+                    ClockTimeInc(1, 0, 0);
+                    ClockTimeSetShow(0);
+                    break;
+                case KEYE3:
+                    ClockTimeInc(23, 0, 0);
+                    ClockTimeSetShow(0);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) ClockTimeInc(1, 0, 0);
+                    else ClockTimeInc(23, 0, 0);
+                    ClockTimeSetShow(0);
+                    break;
+                case KEYE4:
+                    state = 1;
+                    ClockTimeSetShow(1);
+                    break;
+            }
             break;
 
         case 1:
-
+            switch (input) {
+                case KEYE2:
+                    ClockTimeInc(0, 1, 0);
+                    ClockTimeSetShow(1);
+                    break;
+                case KEYE3:
+                    ClockTimeInc(23, 59, 0);
+                    ClockTimeSetShow(1);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) ClockTimeInc(0, 1, 0);
+                    else ClockTimeInc(23, 59, 0);
+                    ClockTimeSetShow(1);
+                    break;
+                case KEYE4:
+                    state = 2;
+                    ClockTimeSetShow(2);
+                    break;
+            }
             break;
 
         case 2:
-
+            switch (input) {
+                case KEYE2:
+                    ClockTimeInc(0, 0, 1);
+                    ClockTimeSetShow(2);
+                    break;
+                case KEYE3:
+                    ClockTimeInc(23, 59, 59);
+                    ClockTimeSetShow(2);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) ClockTimeInc(0, 0, 1);
+                    else ClockTimeInc(23, 59, 59);
+                    ClockTimeSetShow(2);
+                    break;
+                case KEYE4:
+                    state = 3;
+                    ClockTimeSetShow(3);
+                    break;
+            }
             break;
 
         case 3:
+            switch (input) {
+                case KEYE2:
+                    ClockCalendorSetByBit(0, 1);
+                    ClockTimeSetShow(3);
+                    break;
+                case KEYE3:
+                    ClockCalendorSetByBit(0, -1);
+                    ClockTimeSetShow(3);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) ClockCalendorSetByBit(0, 1);
+                    else ClockCalendorSetByBit(0, -1);
+                    ClockTimeSetShow(3);
+                    break;
+                case KEYE4:
+                    state = 4;
+                    ClockTimeSetShow(4);
+                    break;
+            }
+            break;
 
+        case 4:
+            switch (input) {
+                case KEYE2:
+                    ClockCalendorSetByBit(1, 1);
+                    ClockTimeSetShow(4);
+                    break;
+                case KEYE3:
+                    ClockCalendorSetByBit(1, -1);
+                    ClockTimeSetShow(4);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) ClockCalendorSetByBit(1, 1);
+                    else ClockCalendorSetByBit(1, -1);
+                    ClockTimeSetShow(4);
+                    break;
+                case KEYE4:
+                    state = 5;
+                    ClockTimeSetShow(5);
+                    break;
+            }
+            break;
+
+        case 5:
+            switch (input) {
+                case KEYE2:
+                    ClockCalendorSetByBit(2, 1);
+                    ClockTimeSetShow(5);
+                    break;
+                case KEYE3:
+                    ClockCalendorSetByBit(2, -1);
+                    ClockTimeSetShow(5);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) ClockCalendorSetByBit(2, 1);
+                    else ClockCalendorSetByBit(2, -1);
+                    ClockTimeSetShow(5);
+                    break;
+                case KEYE4:
+                    state = 6;
+                    ClockTimeSetShow(6);
+                    break;
+            }
+            break;
+
+        case 6:
+            switch (input) {
+                case KEYE2:
+                    StepMotorTick(false);
+                    break;
+                case KEYE3:
+                    StepMotorTick(true);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) StepMotorTick(false);
+                    else StepMotorTick(true);
+                    break;
+                case KEYE4:
+                    state = 0;
+                    SettingTransFunc(KEYE8);  //切换回正常状态
+                    return;
+                    break;
+            }
             break;
 
         default:;
     }
+
+    SettingTransFunc(input);
 }
 
 void SettingTransFunc(key_trig_type_e input) {
-
+    switch (input) {
+        case KEYE8:
+            currentState = DISPLAY;
+            OperationChangeAvailability(true, true);
+            break;
+    }
 }
 
 void StopWatchOutputLogic(key_trig_type_e input) {
@@ -162,6 +302,14 @@ void AlarmOutputLogic(key_trig_type_e input) {
                     break;
                 case KEYE3:
                     if(alarmIndex > 0) alarmIndex--;
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0){
+                        if(alarmIndex < ALARM_NUM - 1) alarmIndex++;
+                    }
+                    else{
+                        if(alarmIndex > 0) alarmIndex--;
+                    }
                     break;
                 case KEYE4:
                     state = 1;
@@ -227,6 +375,11 @@ void AlarmOutputLogic(key_trig_type_e input) {
                     break;
                 case KEYE3:
                     AlarmChangeAvailability(alarmIndex, false);
+                    AlarmShowAvailablity(alarmIndex);
+                    break;
+                case QEI:
+                    if(GetQEIValueChange() > 0) AlarmChangeAvailability(alarmIndex, true);
+                    else AlarmChangeAvailability(alarmIndex, false);
                     AlarmShowAvailablity(alarmIndex);
                     break;
                 case KEYE4:

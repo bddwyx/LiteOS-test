@@ -47,15 +47,27 @@ int32_t StepMotorCMD(int32_t cmd){
     return stepMotorTodo;
 }
 
-void StepMotorTick(){
+void StepMotorTick(bool dir) {
     static uint8_t cnt = 0;
-    cnt++;
-    if(cnt > 59){
-        StepMotorCMD(-42);
-        cnt %= 60;
+
+    if(dir){
+        if(cnt > 0) {
+            cnt--;
+            StepMotorCMD(34);
+        }
+        else {
+            StepMotorCMD(42);
+            cnt = 59;
+        }
     }
-    else{
-        StepMotorCMD(-34);
+    else {
+        cnt++;
+        if (cnt > 59) {
+            StepMotorCMD(-42);
+            cnt %= 60;
+        } else {
+            StepMotorCMD(-34);
+        }
     }
 }
 

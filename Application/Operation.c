@@ -20,9 +20,9 @@ static void operation_thread_entry(){
         CMDDetect();
         LOS_TaskDelay(200);
 
-        ClockTick();
+        if(motorEnable || tubeEnable) ClockTick();
 
-        if(motorEnable) StepMotorTick();
+        if(motorEnable) StepMotorTick(false);
         if(tubeEnable) ClockDisplay(SIXBIT_WITHDASH);
     }
 }

@@ -20,8 +20,11 @@ const uint8_t * ClockDateGet(void);
 
 void ClockModuleInit(void);
 void ClockTick(void);
+void ClockTickChangeAvailability(bool availability);
 void ClockDisplay(enum display_mode_e mode);
 void ClockDateDisplay(void);
 void ClockSolarDisplay(void);
+void ClockTimeSetShow(uint8_t state);
+void ClockCalendorSetByBit(uint8_t category, int8_t num);
 
 #endif //CLOCK_H

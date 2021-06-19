@@ -104,12 +104,12 @@ const uint8_t * ClockTimeGet(){
     return time;
 }
 
-void ClockTick(){
-    if(++*second > 59){
+void ClockTick() {
+    if (++*second > 59) {
         *second = 0;
-        if(++*minute > 59){
+        if (++*minute > 59) {
             *minute = 0;
-            if(++*hour > 23){
+            if (++*hour > 23) {
                 *hour = 0;
                 ClockDateInc();
             }
@@ -224,4 +224,108 @@ void ClockSolarDisplay(){
 
     for(uint8_t i = 0; i < 5; i++) tubeShowBuffer[i] = 20;
     for(uint8_t i = 5; i < 8; i++) tubeShowBuffer[i] = 19;
+}
+
+/**
+ * @param state
+ * 0: hour 1: minute 2:second
+ * 3: year 4: month 5:date
+ * 6: clock
+ */
+void ClockTimeSetShow(uint8_t state){
+    switch (state) {
+        case 0:
+            tubeShowBuffer[0] = (*hour) / 10;
+            tubeShowBuffer[1] = (*hour) % 10;
+            tubeShowBuffer[2] = 16;
+            tubeShowBuffer[3] = 20;
+            tubeShowBuffer[4] = 20;
+            tubeShowBuffer[5] = 16;
+            tubeShowBuffer[6] = 20;
+            tubeShowBuffer[7] = 20;
+            break;
+
+        case 1:
+            tubeShowBuffer[0] = (*hour) / 10;
+            tubeShowBuffer[1] = (*hour) % 10;
+            tubeShowBuffer[2] = 16;
+            tubeShowBuffer[3] = (*minute) / 10;
+            tubeShowBuffer[4] = (*minute) % 10;
+            tubeShowBuffer[5] = 16;
+            tubeShowBuffer[6] = 20;
+            tubeShowBuffer[7] = 20;
+            break;
+
+        case 2:
+            tubeShowBuffer[0] = (*hour) / 10;
+            tubeShowBuffer[1] = (*hour) % 10;
+            tubeShowBuffer[2] = 16;
+            tubeShowBuffer[3] = (*minute) / 10;
+            tubeShowBuffer[4] = (*minute) % 10;
+            tubeShowBuffer[5] = 16;
+            tubeShowBuffer[6] = (*second) / 10;
+            tubeShowBuffer[7] = (*second % 10);
+            break;
+
+        case 3:
+            tubeShowBuffer[0] = 2;
+            tubeShowBuffer[1] = 0;
+            tubeShowBuffer[2] = (*year) / 10;
+            tubeShowBuffer[3] = (*year) % 10;
+            tubeShowBuffer[4] = 20;
+            tubeShowBuffer[5] = 20;
+            tubeShowBuffer[6] = 20;
+            tubeShowBuffer[7] = 20;
+            break;
+
+        case 4:
+            tubeShowBuffer[0] = 2;
+            tubeShowBuffer[1] = 0;
+            tubeShowBuffer[2] = (*year) / 10;
+            tubeShowBuffer[3] = (*year) % 10;
+            tubeShowBuffer[4] = (*month) / 10;
+            tubeShowBuffer[5] = (*month) % 10;
+            tubeShowBuffer[6] = 20;
+            tubeShowBuffer[7] = 20;
+            break;
+
+        case 5:
+            tubeShowBuffer[0] = 2;
+            tubeShowBuffer[1] = 0;
+            tubeShowBuffer[2] = (*year) / 10;
+            tubeShowBuffer[3] = (*year) % 10;
+            tubeShowBuffer[4] = (*month) / 10;
+            tubeShowBuffer[5] = (*month) % 10;
+            tubeShowBuffer[6] = (*date) / 10;
+            tubeShowBuffer[7] = (*date) % 10;
+            break;
+
+        case 6:
+            tubeShowBuffer[0] = 20;
+            tubeShowBuffer[1] = 20;
+            tubeShowBuffer[2] = 20;
+            tubeShowBuffer[3] = 20;
+            tubeShowBuffer[4] = 20;
+            tubeShowBuffer[5] = 20;
+            tubeShowBuffer[6] = 20;
+            tubeShowBuffer[7] = 20;
+    }
+}
+
+/**
+ * @param category
+ * 0: year, 1: month, 2: date
+ */
+void ClockCalendorSetByBit(uint8_t category, int8_t num){
+    if(category == 0){
+        if((*year) + num >= 0) (*year) += num;
+    }
+    if(category == 1){
+        (*month) += 12 + num;
+        (*month) %= 12;
+    }
+    if(category == 2){
+        (*date) += 31 + num;
+        (*date) %= 31;
+    }
 }

@@ -20,6 +20,6 @@ void StepMotorDriver(uint8_t step);
 #endif
 
 int32_t StepMotorCMD(int32_t cmd);
-void StepMotorTick(void);
+void StepMotorTick(bool dir);
 
 #endif //STEPMOTOR_H
