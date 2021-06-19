@@ -24,6 +24,12 @@ void CMDFuncGetTime(){
     UARTStringPutNonBlocking(showBuffer);
 }
 
+void CMDFuncGetDate(){
+    uint8_t showBuffer[15];
+    sprintf((char*)showBuffer, "DATE20%02d%02d%02d\r\n", *ClockDateGet(), *(ClockDateGet() + 1), *(ClockDateGet() + 2));
+    UARTStringPutNonBlocking(showBuffer);
+}
+
 void CMDFuncDateSet(){
     uint8_t year, month, date;
     year = (CMDBuffer[6] - '0') * 10 + (CMDBuffer[7] - '0');
@@ -63,6 +69,10 @@ void CMDOperation(const uint8_t* buffer, uint8_t size){
 
         if(strncmp((const char*)CMDBuffer, "GETTIME", 7) == 0){
             CMDFuncGetTime();
+        }
+
+        if(strncmp((const char*)CMDBuffer, "GETDATE", 7) == 0){
+            CMDFuncGetDate();
         }
 
         if(strncmp((const char*)CMDBuffer, "DATE", 4) == 0){
