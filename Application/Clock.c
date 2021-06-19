@@ -168,3 +168,59 @@ void ClockDateDisplay(){
     tubeShowBuffer[6] = (*date) / 10;
     tubeShowBuffer[7] = (*date) % 10;
 }
+
+const uint8_t solarTermDate[24][2] = {
+        {2, 3},
+        {2, 18},
+        {3, 5},
+        {3, 20},
+        {4, 4},
+        {4, 20},
+
+        {5, 5},
+        {5, 21},
+        {6, 5},
+        {6, 21},
+        {7, 7},
+        {7, 22},
+
+        {8, 7},
+        {8, 23},
+        {9, 7},
+        {9, 23},
+        {10, 8},
+        {10, 23},
+
+        {11, 7},
+        {11, 22},
+        {12, 7},
+        {12, 21},
+        {1, 5},
+        {1, 20},
+};
+
+const uint8_t solarTermSeasonName[4][2] = {
+        {5, 17},
+        {5, 18},
+        {10, 18},
+        {8, 1},
+};
+
+void ClockSolarDisplay(){
+    for(uint8_t i = 0; i < 24; i++){
+        if((solarTermDate[i][0] == (*month)) && (solarTermDate[i][1] == (*date))){
+            tubeShowBuffer[0] = 20;
+            tubeShowBuffer[1] = 20;
+            tubeShowBuffer[2] = 20;
+            tubeShowBuffer[3] = 20;
+            tubeShowBuffer[4] = 20;
+            tubeShowBuffer[5] = solarTermSeasonName[i / 6][0];
+            tubeShowBuffer[6] = solarTermSeasonName[i / 6][1];
+            tubeShowBuffer[7] = i % 6 + 1;
+
+            return;
+        }
+    }
+
+    for(uint8_t i = 0; i < 8; i++) tubeShowBuffer[i] = 20;
+}

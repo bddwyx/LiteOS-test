@@ -22,5 +22,6 @@ void ClockModuleInit(void);
 void ClockTick(void);
 void ClockDisplay(enum display_mode_e mode);
 void ClockDateDisplay(void);
+void ClockSolarDisplay(void);
 
 #endif //CLOCK_H

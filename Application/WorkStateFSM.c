@@ -41,15 +41,17 @@ void DisplayOutputLogic(key_trig_type_e input){
 
     switch(state){
         case 0:
+            OperationChangeAvailability(true, true);
             ClockDisplay(SIXBIT_WITHDASH);
             break;
 
         case 1:
+            OperationChangeAvailability(true, false);
             ClockDateDisplay();
             break;
 
         case 2:
-
+            ClockSolarDisplay();
             break;
 
         default:;

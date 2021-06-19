@@ -123,7 +123,7 @@ static uint32_t key_thread_handle;
 static void key_thread_entry(void* param){
     while(1) {
         KeyScan();
-        LOS_TaskDelay(10); // Delay
+        LOS_TaskDelay(20); // Delay
     }
 }
 
