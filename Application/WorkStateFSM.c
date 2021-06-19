@@ -150,7 +150,7 @@ void StopWatchTransFunc(key_trig_type_e input) {
 }
 
 void AlarmOutputLogic(key_trig_type_e input) {
-    /** 0:：闹钟选择，1：小时设定，2：分钟设定 **/
+    /** 0:：闹钟选择，1：小时设定，2：分钟设定，3：使能 **/
     static uint8_t state = 0;
     static uint8_t alarmIndex = 0;
 
@@ -166,6 +166,8 @@ void AlarmOutputLogic(key_trig_type_e input) {
                 case KEYE4:
                     state = 1;
                     AlarmGet(alarmIndex, alarmSettingBuffer);
+                    AlarmShow(alarmIndex, true);
+                    return;
                     break;
             }
             for(uint8_t i = 0; i < 6; i++) tubeShowBuffer[i] = 20;
@@ -211,11 +213,30 @@ void AlarmOutputLogic(key_trig_type_e input) {
                     AlarmShow(alarmIndex, false);
                     break;
                 case KEYE4:
+                    state = 3;
+                    AlarmShowAvailablity(alarmIndex);
+                    break;
+            }
+            break;
+
+        case 3:
+            switch (input) {
+                case KEYE2:
+                    AlarmChangeAvailability(alarmIndex, true);
+                    AlarmShowAvailablity(alarmIndex);
+                    break;
+                case KEYE3:
+                    AlarmChangeAvailability(alarmIndex, false);
+                    AlarmShowAvailablity(alarmIndex);
+                    break;
+                case KEYE4:
                     state = 0;
                     AlarmTransFunc(KEYE8);  //切换回正常状态
                     return;
                     break;
             }
+            break;
+
     }
 
     AlarmTransFunc(input);

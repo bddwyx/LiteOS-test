@@ -8,6 +8,7 @@ const uint8_t seg7[] = {
         0x3e,   //u,18
         0x80,   //.,19
         0x00,   // ,20
+        0x54,   //n,21
         };
 
 void DigitalTubeHWInit(){
