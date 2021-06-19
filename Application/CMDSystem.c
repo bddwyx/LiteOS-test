@@ -33,6 +33,15 @@ void CMDFuncDateSet(){
     UARTStringPutNonBlocking("Success\r\n");
 }
 
+void CMDFuncAlarmSet(){
+    AlarmSet(
+            CMDBuffer[5] - '0',
+            (CMDBuffer[6] - '0') * 10 + (CMDBuffer[7] - '0'),
+            (CMDBuffer[8] - '0') * 10 + (CMDBuffer[9] - '0')
+            );
+    UARTStringPutNonBlocking("Success\r\n");
+}
+
 bool CMDCheckAvailability(const uint8_t* buffer, uint8_t size){
     uint8_t i;
     for(i = 0; i < size; i++){
@@ -58,6 +67,10 @@ void CMDOperation(const uint8_t* buffer, uint8_t size){
 
         if(strncmp((const char*)CMDBuffer, "DATE", 4) == 0){
             CMDFuncDateSet();
+        }
+
+        if(strncmp((const char*)CMDBuffer, "ALARM", 5) == 0){
+            CMDFuncAlarmSet();
         }
     }
 }
