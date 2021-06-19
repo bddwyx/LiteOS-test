@@ -17,16 +17,23 @@ uint8_t showBuffer[6] = {0};
 void ClockModuleInit(){
     EEPROMHWInit();
     EEPROMReadToRAM(0, time, 4);
+    EEPROMReadToRAM(4, calender, 4);
 }
 
 void ClockDataStore(){
     EEPROMWriteToDst(0, time, 4);
 }
 
+void ClockCalendorStore(){
+    EEPROMWriteToDst(4, calender, 4);
+}
+
 void ClockDateSet(uint8_t _year, uint8_t _month, uint8_t _date){
     *year = _year;
     *month = _month;
     *date = _date;
+
+    ClockCalendorStore();
 }
 
 void ClockDateInc(){
@@ -63,6 +70,8 @@ void ClockDateInc(){
             *year += 1;
         }
     }
+
+    ClockCalendorStore();
 }
 
 void ClockTimeSet(uint8_t _hour, uint8_t _minute, uint8_t _second){

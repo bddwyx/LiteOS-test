@@ -45,8 +45,6 @@ static void init_thread_entry(){
     DigitalChangeLEDBuffer(0x00);
     LOS_TaskDelay(200);
 
-    //fortubeShowBuffer[i] = 0
-
     LOS_TaskLock();
 
     KeyScanRTTInit();

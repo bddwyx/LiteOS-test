@@ -24,6 +24,15 @@ void CMDFuncGetTime(){
     UARTStringPutNonBlocking(showBuffer);
 }
 
+void CMDFuncDateSet(){
+    uint8_t year, month, date;
+    year = (CMDBuffer[6] - '0') * 10 + (CMDBuffer[7] - '0');
+    month = (CMDBuffer[8] - '0') * 10 + (CMDBuffer[9] - '0');
+    date = (CMDBuffer[10] - '0') * 10 + (CMDBuffer[11] - '0');
+    ClockDateSet(year, month, date);
+    UARTStringPutNonBlocking("Success\r\n");
+}
+
 bool CMDCheckAvailability(const uint8_t* buffer, uint8_t size){
     uint8_t i;
     for(i = 0; i < size; i++){
@@ -45,6 +54,10 @@ void CMDOperation(const uint8_t* buffer, uint8_t size){
 
         if(strncmp((const char*)CMDBuffer, "GETTIME", 7) == 0){
             CMDFuncGetTime();
+        }
+
+        if(strncmp((const char*)CMDBuffer, "DATE", 4) == 0){
+            CMDFuncDateSet();
         }
     }
 }
