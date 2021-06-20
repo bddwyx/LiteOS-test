@@ -22,6 +22,8 @@ void AlarmStart(uint8_t alarmIndex){
         MusicStart(&Astronomia);
         currentAlarm = &Astronomia;
     }
+
+    DigitalTubeBrightnessMax();
 }
 
 void AlarmStop(){
