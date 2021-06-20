@@ -2,6 +2,7 @@
 #define ALARM_H
 
 #include "DigitalTube.h"
+#include "BSP_EEPROM.h"
 
 #include "Lib_songs.h"
 
@@ -16,6 +17,8 @@ extern const uint8_t ALARM_NUM;
 
 void AlarmCheck(const uint8_t* const time);
 void AlarmStop(void);
+void AlarmLoad(void);
+void AlarmStore(uint8_t alarmIndex);
 void AlarmGet(uint8_t index, uint8_t* buffer);
 void AlarmSet(uint8_t index, uint8_t _hour, uint8_t _minute);
 void AlarmInc(uint8_t index, uint8_t _hour, uint8_t _minute);

@@ -39,6 +39,25 @@ void AlarmCheck(const uint8_t* const time){
     }
 }
 
+void AlarmLoad(){
+    for(uint8_t i = 0 ; i < ALARM_NUM; i++){
+        uint8_t buffer[4];
+        EEPROMReadToRAM(4 * (i + 2), buffer, 4);
+        alarm[i].hour = buffer[0];
+        alarm[i].minute = buffer[1];
+        alarm[i].onOff = buffer[2];
+    }
+}
+
+void AlarmStore(uint8_t alarmIndex){
+    uint8_t buffer[4];
+    buffer[0] = alarm[alarmIndex].hour;
+    buffer[1] = alarm[alarmIndex].minute;
+    buffer[2] = alarm[alarmIndex].onOff;
+
+    EEPROMWriteToDst(4 * (alarmIndex + 2), buffer, 4);
+}
+
 void AlarmGet(uint8_t index, uint8_t* buffer){
     buffer[0] = alarm[index].hour;
     buffer[1] = alarm[index].minute;
@@ -48,6 +67,7 @@ void AlarmSet(uint8_t index, uint8_t _hour, uint8_t _minute){
     alarm[index].hour = _hour;
     alarm[index].minute = _minute;
     AlarmChangeAvailability(index, true);
+    AlarmStore(index);
 }
 
 void AlarmInc(uint8_t index, uint8_t _hour, uint8_t _minute){
@@ -62,6 +82,7 @@ void AlarmInc(uint8_t index, uint8_t _hour, uint8_t _minute){
 
 void AlarmChangeAvailability(uint8_t index, bool availability) {
     alarm[index].onOff = availability;
+    AlarmStore(index);
 }
 
 void AlarmShow(uint8_t index, bool isHourMode){

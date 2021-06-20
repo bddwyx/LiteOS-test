@@ -18,6 +18,7 @@ void ClockModuleInit(){
     EEPROMHWInit();
     EEPROMReadToRAM(0, time, 4);
     EEPROMReadToRAM(4, calender, 4);
+    AlarmLoad();
 }
 
 void ClockDataStore(){
