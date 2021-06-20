@@ -3,9 +3,9 @@
 alarm_inform_t alarm[] = {
         {12, 0, &Astronomia, false},
         {12, 0, &Windmill, false},
-        {12, 0, &Happybirthday, false},
+        {12, 0, &IronTorrent, false},
         {12, 0, &Senbonzakura, false},
-        {12, 0, &Pureland, false},
+        {12, 0, &IronTorrent, false},
         {12, 0, &IronTorrent, false},
 };
 

@@ -1,6 +1,12 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "hw_ints.h"
+#include "timer.h"
+
 #include "StepMotor.h"
 
 #include "Clock.h"
