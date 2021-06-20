@@ -8,7 +8,9 @@
 #include <string.h>
 
 #include "UART0.h"
+
 #include "Clock.h"
+#include "StopWatch.h"
 
 void CMDDetect(void);
 

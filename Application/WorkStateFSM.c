@@ -280,6 +280,9 @@ void StopWatchOutputLogic(key_trig_type_e input) {
         case KEYE4:
             StopWatchOn();
             break;
+        case KEYE6:
+            StopWatchPend();
+            break;
         case QEI:
             StopWatchInc(GetQEIValueChange());
             break;

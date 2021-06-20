@@ -48,6 +48,15 @@ void CMDFuncAlarmSet(){
     UARTStringPutNonBlocking("Success\r\n");
 }
 
+void CMDFuncStopWatchSet(){
+    StopWatchSet((CMDBuffer[9] - '0') * 10 + (CMDBuffer[10] - '0'));
+    UARTStringPutNonBlocking("Success\r\n");
+}
+
+void CMDFuncReset(){
+    SysCtlReset();
+}
+
 bool CMDCheckAvailability(const uint8_t* buffer, uint8_t size){
     uint8_t i;
     for(i = 0; i < size; i++){
@@ -81,6 +90,14 @@ void CMDOperation(const uint8_t* buffer, uint8_t size){
 
         if(strncmp((const char*)CMDBuffer, "ALARM", 5) == 0){
             CMDFuncAlarmSet();
+        }
+
+        if(strncmp((const char*)CMDBuffer, "STOPWATCH", 9) == 0){
+            CMDFuncStopWatchSet();
+        }
+
+        if(strncmp((const char*)CMDBuffer, "RESET", 5) == 0){
+            CMDFuncReset();
         }
     }
 }

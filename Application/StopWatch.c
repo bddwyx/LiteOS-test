@@ -10,8 +10,17 @@ void StopWatchOn(){
     DigitalChangeLEDBuffer(0x20);
 }
 
+void StopWatchPend(){
+    stopWatchOn = false;
+    DigitalChangeLEDBuffer(0x10);
+}
+
 void StopWatchModeSwitch(bool state) {
     stopWatchDisplayOn = state;
+}
+
+void StopWatchSet(uint8_t seconds){
+    stopWatchTime = seconds;
 }
 
 void StopWatchInc(int8_t seconds){
